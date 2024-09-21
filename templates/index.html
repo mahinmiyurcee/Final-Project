@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Income and Spending Survey</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --background-color: #f4f4f4;
+            --form-background: #ffffff;
+            --input-background: #ecf0f1;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: var(--secondary-color);
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: var(--background-color);
+        }
+        .container {
+            background-color: var(--form-background);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: var(--secondary-color);
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        form {
+            display: grid;
+            gap: 25px;
+        }
+        label {
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: block;
+        }
+        input[type="number"], select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--input-background);
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        input[type="number"]:focus, select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 14px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s, transform 0.1s;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+        button:active {
+            transform: translateY(0);
+        }
+        .expenses {
+            background-color: var(--input-background);
+            padding: 25px;
+            border-radius: 8px;
+            margin-top: 25px;
+        }
+        .expenses h3 {
+            margin-top: 0;
+            color: var(--secondary-color);
+            font-size: 1.5em;
+        }
+        .expense-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .expense-item input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        .expense-item input[type="number"] {
+            flex-grow: 1;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            h2 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Income and Spending Survey</h2>
+        <form method="POST">
+            <div>
+                <label for="age">Age:</label>
+                <input type="number" id="age" name="age" required min="18" max="120">
+            </div>
+            
+            <div>
+                <label for="gender">Gender:</label>
+                <select id="gender" name="gender" required>
+                    <option value="">Select gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            
+            <div>
+                <label for="income">Total Income:</label>
+                <input type="number" id="income" name="income" required min="0">
+            </div>
+            
+            <div class="expenses">
+                <h3>Expenses</h3>
+                <div class="expense-item">
+                    <input type="checkbox" id="utilities_check" name="utilities_check">
+                    <label for="utilities_check">Utilities:</label>
+                    <input type="number" id="utilities" name="utilities" min="0" disabled>
+                </div>
+                
+                <div class="expense-item">
+                    <input type="checkbox" id="entertainment_check" name="entertainment_check">
+                    <label for="entertainment_check">Entertainment:</label>
+                    <input type="number" id="entertainment" name="entertainment" min="0" disabled>
+                </div>
+                
+                <div class="expense-item">
+                    <input type="checkbox" id="school_fees_check" name="school_fees_check">
+                    <label for="school_fees_check">School Fees:</label>
+                    <input type="number" id="school_fees" name="school_fees" min="0" disabled>
+                </div>
+                
+                <div class="expense-item">
+                    <input type="checkbox" id="shopping_check" name="shopping_check">
+                    <label for="shopping_check">Shopping:</label>
+                    <input type="number" id="shopping" name="shopping" min="0" disabled>
+                </div>
+                
+                <div class="expense-item">
+                    <input type="checkbox" id="healthcare_check" name="healthcare_check">
+                    <label for="healthcare_check">Healthcare:</label>
+                    <input type="number" id="healthcare" name="healthcare" min="0" disabled>
+                </div>
+            </div>
+            
+            <button type="submit">Submit Survey</button>
+        </form>
+    </div>
+
+    <script>
+        // Enable/disable expense inputs based on checkbox state
+        document.querySelectorAll('.expense-item input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const inputField = this.parentElement.querySelector('input[type="number"]');
+                inputField.disabled = !this.checked;
+                if (!this.checked) {
+                    inputField.value = '';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
